@@ -76,15 +76,19 @@ try {
 } catch (e) { dire('module de flou', false, String(e.message || e).slice(0, 80)); }
 
 
-try {
-  const f = await import('./lib/faces.js');
-  const t0 = performance.now();
-  const d = await f.loadDetector();
-  const c = document.createElement('canvas'); c.width = 200; c.height = 200;
-  const g = c.getContext('2d'); g.fillStyle = '#888'; g.fillRect(0, 0, 200, 200);
-  d.detect(c);
-  dire('détecteur de visages', true, `démarré en ${Math.round(performance.now() - t0)} ms`);
-} catch (e) { dire('détecteur de visages', false, String(e.message || e).slice(0, 90)); }
+
+
+for (const [nom, charger] of [
+  ['détecteur de visages', async () => (await import('./lib/yunet.js')).chargerYunet()],
+  ['détecteur de têtes', async () => (await import('./lib/tetes.js')).chargerTetes()],
+]) {
+  try {
+    const t0 = performance.now();
+    const d = await charger();
+    await d.detecter(new OffscreenCanvas(320, 240));
+    dire(nom, true, `${d.moteur}, prêt en ${Math.round(performance.now() - t0)} ms`);
+  } catch (e) { dire(nom, false, String(e.message || e).slice(0, 90)); }
+}
 
 
 

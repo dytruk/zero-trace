@@ -10,7 +10,7 @@ import { blurVideo, recopierSansReencoder, zoneTete, rayonZone, ELARGI_TETE, ELA
 
 
 
-const BUILD = '20261016-2209';
+const BUILD = '20261016-2221';
 
 
 const outbound = { count: 0, hotes: new Set() };
@@ -81,8 +81,16 @@ function laisserDormir() {
   try { verrouEcran.release(); } catch (e) {  }
   verrouEcran = null;
 }
+
+
+
+
+
+
 document.addEventListener('visibilitychange', () => {
-  if (document.visibilityState === 'visible' && S.enTraitement) garderEveille();
+  if (!S.enTraitement) return;
+  if (document.visibilityState === 'visible') garderEveille();
+  else { S.quitteePendant = true; noter('page passée en arrière-plan pendant le traitement'); }
 });
 
 function veil(text, pct) {
@@ -1691,6 +1699,8 @@ async function exporter() {
 
 
         S.enTraitement = true;
+        S.quitteePendant = false;
+        $('diagRaison').hidden = true;
         const tenu = await garderEveille();
         const note = $('veilNote');
         note.hidden = false;
@@ -1792,7 +1802,18 @@ async function exporter() {
     setScreen('done');
     status(`${(S.exported.bytes / 1048576).toFixed(1)} Mo`);
   } catch (err) {
-    noter('export interrompu', String(err && err.message ? err.message : err));
+    const message = String(err && err.message ? err.message : err);
+    noter('export interrompu', message);
+
+
+    const codec = /decoder failure|encoder failure|codec (is )?closed|reclaimed/i.test(message);
+    const raison = $('diagRaison');
+    raison.textContent = S.quitteePendant
+      ? 'L\u2019export s\u2019est arrêté parce que l\u2019app a été quittée ou l\u2019écran s\u2019est verrouillé pendant le traitement. Relance « Nettoyer et exporter » et reste sur cette page jusqu\u2019à la fin.'
+      : codec
+        ? 'Le décodeur vidéo du téléphone s\u2019est arrêté. Ça arrive surtout quand on quitte l\u2019app ou que l\u2019écran se verrouille : relance l\u2019export en restant sur cette page. Si ça recommence, envoie ce journal.'
+        : '';
+    raison.hidden = !raison.textContent;
     montrerDiag();
   } finally {
     S.enTraitement = false;

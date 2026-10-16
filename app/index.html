@@ -4,9 +4,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Zero-Trace</title>
-<meta name="description" content="Efface les métadonnées et floute ce qui identifie, entièrement dans le navigateur.">
+<meta name="description" content="Floute les visages et efface les métadonnées d'une photo ou d'une vidéo. Tout reste sur ton téléphone.">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Zero-Trace">
+<meta property="og:title" content="Zero-Trace">
+<meta property="og:description" content="Floute les visages et efface les métadonnées d'une photo ou d'une vidéo. Tout reste sur ton téléphone.">
+<meta property="og:url" content="https://ztrace.app/">
+<meta property="og:image" content="https://ztrace.app/partage.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Zero-Trace : floute les visages, efface les métadonnées. Tout reste sur ton téléphone.">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'wasm-unsafe-eval' blob:; worker-src 'self' blob:; style-src 'self'; font-src 'self'; img-src 'self' blob: data:; connect-src 'self' blob: data:; manifest-src 'self'; media-src 'self' blob:; base-uri 'none'; form-action 'none'">
-<meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#000000">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -14,7 +25,9 @@
 <meta name="apple-mobile-web-app-title" content="Zero-Trace">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./icons/icon-180.png">
-<link rel="icon" href="./icons/icon-192.png">
+
+<link rel="icon" href="./favicon.ico" sizes="48x48">
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="./styles.css">
 </head>
 <body data-screen="start">
@@ -112,7 +125,7 @@
       Installé ou non, l'outil travaille toujours en local. Pour l'ouvrir sans
       réseau (mode avion, métro, manifestation où ça ne passe plus),
       installe-le sur l'écran d'accueil : il garde alors ses détecteurs sur
-      l'appareil, environ 50 Mo téléchargés une seule fois. Ouvre-le une
+      l'appareil, environ 22 Mo téléchargés une seule fois. Ouvre-le une
       première fois avec du réseau ; ensuite, il n'en a plus besoin.
     </p>
     <p class="explique" id="installPourquoi" hidden></p>
@@ -149,6 +162,21 @@
       <a class='lien' href='https://github.com/dytruk/zero-trace' rel='noopener noreferrer'>Le code source</a>
       <a class='lien' href='vendor/LICENCES.txt'>Les briques d'autres auteurs</a>
     </nav>
+
+    <h3 class="titre-bloc">Mentions légales</h3>
+    <p class="note">
+      Éditeur : les auteurs de Zero-Trace, à titre non professionnel.
+      Contact : <a href="mailto:contact@ztrace.app">contact@ztrace.app</a>.
+    </p>
+    <p class="note">
+      Hébergeur : Netlify, Inc., 101 2nd Street, San Francisco, CA 94105,
+      États-Unis.
+    </p>
+    <p class="note">
+      Données personnelles : aucune n'est collectée. Pas de compte, pas de
+      cookie, pas de mesure d'audience, et tes fichiers ne quittent pas ton
+      appareil.
+    </p>
 
     <div class="rule"></div>
     <button class="action" id="aideRetour"><span>Revenir</span></button>
@@ -228,7 +256,8 @@
 <div class="diag" id="diag" hidden>
   <div class="diag__in">
     <h3>Journal de la dernière tentative</h3>
-    <p class="note">Tout est resté sur cet appareil. Copie ce texte et colle-le dans la conversation : il dit exactement ce que l’outil a fait, sans rien révéler de ton fichier.</p>
+    <p class="explique" id="diagRaison" hidden></p>
+    <p class="note">Tout est resté sur cet appareil. Copie ce texte et envoie-le à <a href="mailto:contact@ztrace.app">contact@ztrace.app</a> : il dit exactement ce que l’outil a fait, sans rien révéler de ton fichier.</p>
     <textarea id="diagTexte" readonly rows="14"></textarea>
     <div class="actions">
       <button class="action action--primary" id="diagCopier"><span>Copier le journal</span></button>

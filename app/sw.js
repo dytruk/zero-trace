@@ -6,7 +6,7 @@
 
 
 
-const VERSION = 'zt-20261016-2209';
+const VERSION = 'zt-20261016-2221';
 
 
 
@@ -25,17 +25,22 @@ const VERSION = 'zt-20261016-2209';
 
 const LOURDS = 'zt-lourds-1';
 
+
+
+
+
+
+
+
+
+
 const LOURDS_LISTE = [
-  './vendor/mediapipe/wasm/vision_wasm_internal.js',
-  './vendor/mediapipe/wasm/vision_wasm_internal.wasm',
-  './vendor/models/blaze_face_full_range.tflite',
 
   './vendor/onnxruntime/ort-wasm-simd-threaded.wasm',
 
 
 
   './vendor/models/yolox_n_body_head_hand.onnx',
-  './vendor/models/efficientdet_lite0.tflite',
   './vendor/libheif/libheif.wasm',
 ];
 const CORE = [
@@ -54,7 +59,6 @@ const CORE = [
   './vendor/mp4box/mp4box.all.mjs',
   './vendor/mp4box/rolldown-runtime-w6R9maHv.mjs',
   './vendor/mp4box/styp-9TIZZDLN.mjs',
-  './vendor/mediapipe/vision_bundle.mjs',
   './manifest.webmanifest',
   './fonts/ibm-plex-mono-latin-400-normal.woff2',
   './fonts/ibm-plex-mono-latin-600-normal.woff2',
@@ -62,7 +66,7 @@ const CORE = [
   './fonts/ibm-plex-sans-condensed-latin-600-normal.woff2',
   './fonts/ibm-plex-sans-condensed-latin-700-normal.woff2',
   './vendor/libheif/libheif-bundle.mjs',
-  './icons/icon-192.png', './icons/icon-512.png', './icons/icon-180.png',
+  './icons/icon-192.png', './icons/icon-512.png', './icons/icon-180.png', './favicon.svg',
 ];
 
 const EST_DU_CODE = (url) => /\.(html|js|mjs|css|webmanifest|json|txt)$/.test(url.pathname) || url.pathname.endsWith('/');
