@@ -21,7 +21,8 @@ En ligne : <https://ztrace.app>
 
 ## Tout reste sur l'appareil
 
-Aucun serveur, aucun compte, aucune mesure d'audience. Le navigateur fait tout :
+Aucun serveur de traitement, aucun compte, aucun cookie, aucun traceur : l'hébergeur
+compte seulement les visites, de façon anonyme. Le navigateur fait tout :
 la détection (ONNX Runtime en WebAssembly), le flou et le réencodage
 (WebCodecs). La politique de sécurité de la page interdit toute sortie vers un
 autre site, et l'application compte les tentatives à l'écran. Installée sur
