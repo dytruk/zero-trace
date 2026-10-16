@@ -49,8 +49,11 @@ Deux conditions :
   laquelle les détecteurs ne tournent que sur un cœur, et la politique de
   sécurité.
 
-Sur Netlify, `netlify.toml` suffit. Ailleurs, reprendre les en-têtes de
-`app/_headers` dans la configuration du serveur.
+Sur Cloudflare Pages (l'hébergement de ztrace.app) : dossier de sortie `app`,
+aucune commande de build ; `app/_headers` et `app/404.html` sont pris en
+compte tels quels. Sur Netlify, `netlify.toml` suffit. Ailleurs, reprendre les
+en-têtes de `app/_headers` dans la configuration du serveur, et répondre 404
+pour un fichier absent (un modèle manquant ne doit pas recevoir la page HTML).
 
 Ce dépôt contient l'application telle qu'elle est servie en ligne.
 
