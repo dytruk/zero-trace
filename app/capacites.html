@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ce que ce navigateur sait faire</title>
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body data-screen="aide">
+<header class="bar bar--top">
+  <span class="wordmark">ZERO-TRACE</span>
+</header>
+<main>
+  <section class="screen" data-for="aide">
+    <h2 class="display display--petit">Ce que ce<br>navigateur<br>sait faire.</h2>
+    <p class="lede">
+      Chaque ligne est un essai réel, pas une détection de nom : dix images sont
+      encodées puis redécodées, et le flou est appliqué puis relu dans les pixels.
+      Ouvre cette page dans le navigateur que tu veux vérifier.
+    </p>
+    <pre class="sonde" id="log">mesure en cours…</pre>
+    <div class="rule"></div>
+    <nav class="liens"><a class="lien" href="./">Revenir à l'outil</a></nav>
+  </section>
+</main>
+<script type="module" src="./capacites.js"></script>
+</body>
+</html>

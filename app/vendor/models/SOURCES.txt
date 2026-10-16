@@ -1,0 +1,28 @@
+Modèles embarqués dans cette application, leur origine et leur licence.
+Ils tournent dans le navigateur ; aucune image ne quitte l'appareil.
+
+yolox_n_body_head_hand.onnx
+  Détecteur de têtes et de corps (« les gens de dos », zones tracées au doigt).
+  Origine : PINTO Model Zoo, 426_YOLOX-Body-Head-Hand, taille Nano
+    https://github.com/PINTO0309/PINTO_model_zoo/tree/main/426_YOLOX-Body-Head-Hand
+    fichier d'origine : yolox_n_body_head_hand_0461_0.4428_1x3x384x640.onnx
+  Fondé sur YOLOX (Megvii-BaseDetection), entraîné sur COCO-Hand réannoté
+    (Narasimhaswamy et al., « Contextual Attention for Hand Detection in the
+    Wild », ICCV 2019) et des images de l'auteur.
+  Licence : Apache License 2.0 (texte complet : ../licences/APACHE-2.0.txt).
+  Modification : seules les dimensions DÉCLARÉES d'entrée et de sortie ont
+    été rendues libres (au lieu de 1x3x384x640), et les annotations de forme
+    intermédiaires retirées. Poids et opérations inchangés.
+
+yunet_2023mar.onnx
+  Détecteur de visages.
+  Origine : OpenCV Zoo, face_detection_yunet
+    https://github.com/opencv/opencv_zoo/tree/main/models/face_detection_yunet
+  Licence : MIT (texte complet : ../licences/MIT-yunet.txt).
+  Modification : dimensions déclarées d'entrée et de sortie rendues libres
+    (au lieu de 640x640). Poids et opérations inchangés.
+
+blaze_face_full_range.tflite, efficientdet_lite0.tflite
+  Détecteurs de secours (visages, personnes), utilisés si le moteur ONNX ne
+  démarre pas.
+  Origine : Google MediaPipe. Licence : Apache License 2.0 (../licences/APACHE-2.0.txt).

@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Zero-Trace</title>
+<meta name="description" content="Efface les métadonnées et floute ce qui identifie, entièrement dans le navigateur.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'wasm-unsafe-eval' blob:; worker-src 'self' blob:; style-src 'self'; font-src 'self'; img-src 'self' blob: data:; connect-src 'self' blob: data:; manifest-src 'self'; media-src 'self' blob:; base-uri 'none'; form-action 'none'">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Zero-Trace">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icons/icon-180.png">
+<link rel="icon" href="./icons/icon-192.png">
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body data-screen="start">
+
+<header class="bar bar--top">
+  <span class="wordmark">ZERO-TRACE</span>
+  <button type="button" class="net" id="net" data-state="idle">aucune sortie réseau</button>
+</header>
+
+<main>
+  
+  <section class="screen" data-for="start">
+    <h1 class="display">Ta photo<br>dit où tu<br>étais.</h1>
+    <p class="lede">
+      Elle transporte le lieu au mètre près, l'heure, et le numéro de série de
+      ton téléphone. Dépose-la : tout ça part, les visages aussi.
+    </p>
+    <label class="action action--primary drop" id="drop">
+      <input type="file" id="pick" accept="image/*,video/*,.heic,.heif,.mov" hidden>
+      <span>Ajouter une photo ou une vidéo</span>
+    </label>
+    <p class="note">JPEG, PNG, HEIC, MP4, MOV. Rien ne quitte cet appareil.</p>
+    <div class="rule"></div>
+    <nav class="liens">
+      <button type="button" class="lien" data-aide="marche">Comment ça marche</button>
+      <button type="button" class="lien" data-aide="installer">Installer sur l'écran d'accueil</button>
+    </nav>
+  </section>
+
+  
+  <section class="screen" data-for="aide">
+    <h2 class="display display--petit">Comment<br>ça marche.</h2>
+
+    <p class="lede">
+      Publier une photo ou une vidéo de manifestation ne devrait exposer ni les
+      gens qu'on y voit, ni la personne qui filme. Un fichier sorti d'un
+      téléphone désigne les deux.
+    </p>
+
+    <h3 class="titre-bloc" id="reseau">Tout se passe sur ton appareil</h3>
+    <p class="note">
+      Ton fichier ne quitte jamais ton téléphone : la détection, le flou et
+      l'écriture du nouveau fichier se font sur place, même quand la page est
+      ouverte avec du réseau. Le réseau ne sert qu'à charger l'outil. Aucun
+      compte, aucun serveur, aucune mesure d'audience.
+    </p>
+    <p class="note">
+      Le compteur en haut de l'écran compte les tentatives de sortie vers un
+      autre site, <em>avant</em> qu'elles ne partent. « Aucune sortie réseau »
+      est l'état normal : il est là pour que tu n'aies pas à nous croire sur
+      parole.
+    </p>
+    <p class="note" id="reseauDetail">Rien n'a encore essayé de sortir pendant cette visite.</p>
+
+    <h3 class="titre-bloc">Ce qu'il fait</h3>
+    <ol class="etapes">
+      <li><span>Il te montre les données cachées du fichier : lieu, date, appareil.</span></li>
+      <li><span>Il trouve les visages et floute la tête entière, tout au long de la vidéo. Un vrai flou, pas un carré posé par-dessus.</span></li>
+      <li><span>Il écrit un nouveau fichier, sans ces données, le flou inscrit dans les pixels. Ton original n'est jamais modifié.</span></li>
+    </ol>
+
+    <h3 class="titre-bloc">Ce que tu règles</h3>
+    <ul class="truths">
+      <li><b>Les visages</b>, trouvés tout seuls.</li>
+      <li><b>Les gens de dos</b> : leur tête est floutée aussi, de dos comme de profil. L'export prend un peu plus de temps.</li>
+      <li><b>La voix</b>, sur une vidéo : plus grave, toujours compréhensible, mais plus reconnaissable à l'oreille. Si l'appareil ne sait pas le faire, le son est retiré, et l'outil te le dit.</li>
+      <li><b>Le reste, au doigt</b> : une pancarte, un tatouage, une plaque, ou quelqu'un que l'outil a raté. Sur une vidéo, la zone suit la personne sur qui tu la poses.</li>
+    </ul>
+
+    <h3 class="titre-bloc">Le flou</h3>
+    <ul class="truths">
+      <li><b>Les pixels d'origine ne sont plus dans le fichier</b> : ni copie, ni couche cachée.</li>
+      <li><b>Pas de mosaïque.</b> Le flou ne laisse rien à reconstruire : les outils qui prétendent « déflouter » inventent un visage plausible, ils ne retrouvent pas le vrai.</li>
+      <li><b>Il couvre la tête entière</b>, cheveux et oreilles compris, et peut mordre sur ce qui la touche.</li>
+    </ul>
+
+    <h3 class="titre-bloc">Ce qui a été vérifié, et ce qui ne l'a pas été</h3>
+    <ul class="truths">
+      <li><b>Vérifié</b> : les données cachées (lieu, date, appareil, numéro de série) ne sont plus dans les fichiers produits. Les visages et les têtes, sur des vidéos de manifestation de jour, filmées de près et d'en haut : un bon signe, pas une garantie. Le fonctionnement sans réseau, sur iPhone (Safari et Chrome) et sur ordinateur (Chrome).</li>
+      <li><b>Pas encore vérifié</b> : les téléphones Android ; la nuit, le contre-jour, la fumée ; les visages cachés (cagoule, casque, capuche) ; les vidéos HDR ou très longues ; la voix déformée face à une analyse spécialisée, contre laquelle seul le retrait du son protège.</li>
+      <li><b>Jamais garanti</b> : un visage minuscule au fond d'une foule, ou une tête vue du dessus, peut échapper au détecteur.</li>
+    </ul>
+    <p class="note">Pas vérifié ne veut pas dire que ça échoue : regarde le résultat de plus près.</p>
+
+    <h3 class="titre-bloc">Les bons gestes</h3>
+    <ul class="truths">
+      <li><b>Regarde le fichier produit en entier</b> avant de le publier, pas l'aperçu. Ce que l'outil n'a pas vu, il ne peut pas te le signaler.</li>
+      <li><b>Passe ta vidéo en direct</b>, ou par AirDrop : une messagerie la reconvertit souvent en route, et tu traiterais sa copie.</li>
+      <li><b>Garde ton original.</b> C'est lui qui fait preuve si tu en as besoin un jour.</li>
+      <li><b>Pour corriger, reprends les corrections</b> plutôt que de repasser le fichier produit : l'outil repart de l'original, et l'image ne se dégrade pas.</li>
+    </ul>
+
+    <h3 class="titre-bloc" id="installer">Sans réseau : l'installer sur l'écran d'accueil</h3>
+    <p class="note">
+      Installé ou non, l'outil travaille toujours en local. Pour l'ouvrir sans
+      réseau (mode avion, métro, manifestation où ça ne passe plus),
+      installe-le sur l'écran d'accueil : il garde alors ses détecteurs sur
+      l'appareil, environ 50 Mo téléchargés une seule fois. Ouvre-le une
+      première fois avec du réseau ; ensuite, il n'en a plus besoin.
+    </p>
+    <p class="explique" id="installPourquoi" hidden></p>
+    <button class="action action--primary" id="installerAppli" hidden><span>Installer l'application</span></button>
+    <ol class="etapes etapes--pose" id="poseInstall"></ol>
+
+    <h3 class="titre-bloc">Ce navigateur est-il compatible ?</h3>
+    <p class="note">
+      Cette page essaie pour de vrai les fonctions dont l'outil a besoin :
+      elle encode puis relit dix images, et vérifie que le flou change bien
+      les pixels.
+    </p>
+    <nav class="liens">
+      <a class='lien' href='/capacites'>Tester ce navigateur</a>
+    </nav>
+
+    <h3 class="titre-bloc">Si quelque chose coince</h3>
+    <p class="note">
+      Le bouton « journal », en bas de l'écran, dit ce que l'outil a fait :
+      ses étapes, ses compteurs, ses erreurs. Ni image, ni nom de fichier.
+      Tu peux le copier et le coller dans une conversation.
+    </p>
+
+    <h3 class="titre-bloc">Le code est ouvert</h3>
+    <p class="note">
+      Chacun peut lire le code de l'outil, vérifier ce qu'il fait, et en
+      héberger sa propre copie : une rédaction, une association ou un
+      collectif peut l'installer sur son propre site. Licence AGPL-3.0 : qui
+      le modifie et le met en ligne doit publier ses modifications.
+    </p>
+    <nav class="liens">
+      <a class='lien' href='https://github.com/dytruk/zero-trace' rel='noopener noreferrer'>Le code source</a>
+      <a class='lien' href='vendor/LICENCES.txt'>Les briques d'autres auteurs</a>
+    </nav>
+
+    <div class="rule"></div>
+    <button class="action" id="aideRetour"><span>Revenir</span></button>
+  </section>
+
+  
+  <section class="screen screen--center" data-for="scan">
+    <p class="etape">analyse en cours</p>
+    <h2 class="display display--petit" id="scanTitle">Je regarde<br>ce que<br>ce fichier<br>raconte.</h2>
+    <div class="progression"><i id="progBarre"></i></div>
+    <p class="progression-txt" id="progTxt">préparation</p>
+    <table class="readout readout--nu" id="steps"></table>
+  </section>
+
+  
+  <section class="screen" data-for="edit">
+    <div class="verdict" id="verdict"></div>
+    <div class="stage" id="stage">
+      <canvas id="view"></canvas>
+      <span class="tick tick--tl"></span><span class="tick tick--tr"></span>
+      <span class="tick tick--bl"></span><span class="tick tick--br"></span>
+    </div>
+    <div class="mode-boite">
+      <p class="mode" id="editNote"></p>
+      <p class="mode mode--flash" id="editFlash" hidden></p>
+    </div>
+    <div class="scrub" id="scrubWrap" hidden>
+      <span>Image <b id="timeVal">1</b></span>
+      <div class="scrub-ligne">
+        <button type="button" class="pas" id="prevImg" aria-label="Image précédente">&#9664;</button>
+        <input type="range" id="scrub" min="0" max="1000" value="0" step="1" aria-label="Choisir l’image">
+        <button type="button" class="pas" id="nextImg" aria-label="Image suivante">&#9654;</button>
+      </div>
+    </div>
+    <div class="tools">
+      <button class="tool is-on" data-tool="brush">Doigt</button>
+      <button class="tool" data-tool="rect">Rectangle</button>
+      <button class="tool" id="undo">Annuler</button>
+      <button class="tool" id="clearAll">Tout enlever</button>
+    </div>
+    <div class="autos" id="autos"></div>
+    <div class="actions">
+      <button class="action action--primary" id="doExport"><span>Nettoyer et exporter</span></button>
+      <button class="action" id="retourPreuve" hidden><span>Revenir au résultat</span></button>
+      <button class="action" id="showDetails"><span>Ce qui a été trouvé</span></button>
+    </div>
+    <div class="sheet" id="detailsSheet" hidden><table class="readout" id="readout"></table></div>
+  </section>
+
+  
+  <section class="screen" data-for="done">
+    <div class="count count--clean">
+      <strong id="doneValue">0</strong>
+      <span>donnée identifiante dans le fichier exporté</span>
+    </div>
+    <p class="verdict-son" id="verdictSon" hidden></p>
+    <div class="stage stage--small" id="doneStage"><canvas id="doneView"></canvas><video id="doneVideo" controls playsinline hidden></video></div>
+    <div class="sheet sheet--clean"><table class="readout" id="proof"></table></div>
+    <p class="note" id="proofNote"></p>
+    <p class="perime" id="perime" hidden></p>
+    <div class="actions">
+      <button class="action action--primary" id="shareOut"><span>Enregistrer ou partager</span></button>
+      <button class="action" id="retourEditeur"><span>Reprendre les corrections</span></button>
+      <button class="action" id="again"><span>Un autre fichier</span></button>
+    </div>
+  </section>
+</main>
+
+<footer class="bar bar--bottom">
+  <span id="status">prêt</span>
+  <span id="offline" hidden>hors-ligne</span>
+  <span id="build"></span>
+  <button type="button" id="aideBas" class="lien-diag">aide</button>
+  <button type="button" id="voirDiag" class="lien-diag">journal</button>
+</footer>
+
+<div class="diag" id="diag" hidden>
+  <div class="diag__in">
+    <h3>Journal de la dernière tentative</h3>
+    <p class="note">Tout est resté sur cet appareil. Copie ce texte et colle-le dans la conversation : il dit exactement ce que l’outil a fait, sans rien révéler de ton fichier.</p>
+    <textarea id="diagTexte" readonly rows="14"></textarea>
+    <div class="actions">
+      <button class="action action--primary" id="diagCopier"><span>Copier le journal</span></button>
+      <button class="action" id="diagFermer"><span>Fermer</span></button>
+    </div>
+  </div>
+</div>
+
+<div class="veil" id="veil" hidden>
+  <div class="veil__in">
+    <span id="veilText">…</span>
+    <div class="jauge" id="jauge" hidden><i id="jaugeBar"></i></div>
+    <p class="veil-note" id="veilNote" hidden></p>
+  </div>
+</div>
+
+<script type="module" src="./app.js"></script>
+</body>
+</html>

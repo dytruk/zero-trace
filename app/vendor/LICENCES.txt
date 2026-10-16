@@ -1,0 +1,37 @@
+Zero-Trace : les briques d'autres auteurs, et leurs licences.
+
+L'application elle-même est sous licence AGPL-3.0 (fichier LICENSE du dépôt).
+Tout ce qui suit tourne dans le navigateur, servi par l'application elle-même.
+Les textes complets des licences sont dans le dossier licences/.
+
+MODÈLES DE DÉTECTION (détails et modifications : models/SOURCES.txt)
+
+  yunet_2023mar.onnx — détecteur de visages, OpenCV Zoo
+    MIT. Copyright (c) 2020 Shiqi Yu. Texte : licences/MIT-yunet.txt
+  yolox_n_body_head_hand.onnx — détecteur de têtes et de corps, PINTO Model Zoo
+    Apache License 2.0. Texte : licences/APACHE-2.0.txt
+  blaze_face_full_range.tflite, efficientdet_lite0.tflite — Google MediaPipe (secours)
+    Apache License 2.0. Texte : licences/APACHE-2.0.txt
+
+BIBLIOTHÈQUES
+
+  onnxruntime-web 1.29.0 (onnxruntime/) — moteur des détecteurs
+    MIT. Copyright (c) Microsoft Corporation. Texte : licences/MIT-onnxruntime.txt
+    https://github.com/microsoft/onnxruntime
+  @mediapipe/tasks-vision 1.1.0 (mediapipe/) — moteur des détecteurs de secours
+    Apache License 2.0. Copyright Google LLC. Texte : licences/APACHE-2.0.txt
+    https://github.com/google-ai-edge/mediapipe
+  mp4box 2.4.1 (mp4box/) — lecture et écriture des fichiers MP4
+    BSD 3-Clause. Texte : licences/BSD-3-mp4box.txt
+    https://github.com/gpac/mp4box.js
+  libheif-js 1.23.5 (libheif/) — lecture des photos HEIC d'iPhone
+    LGPL-3.0. Textes : licences/LGPL-3.0-libheif.txt et licences/GPL-3.0.txt
+    Source : https://github.com/catdad-experiments/libheif-js (construit depuis
+    https://github.com/strukturag/libheif). Chargé à part, à l'exécution : on
+    peut le remplacer par une autre version sans toucher au reste.
+
+POLICES
+
+  IBM Plex Mono, IBM Plex Sans Condensed (fonts/) — Copyright 2017 IBM Corp.
+    SIL Open Font License 1.1. Textes : licences/OFL-1.1-ibm-plex-mono.txt,
+    licences/OFL-1.1-ibm-plex-sans-condensed.txt

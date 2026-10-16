@@ -1,0 +1,5 @@
+/vendor/*  /vendor/:splat  404
+/lib/*     /lib/:splat     404
+/icons/*   /icons/:splat   404
+/fonts/*   /fonts/:splat   404
+/*  /index.html  200

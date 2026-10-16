@@ -1,0 +1,4 @@
+# Site statique : aucune compilation, le dossier app/ est servi tel quel.
+# Ses en-têtes (isolation COOP/COEP, politique de sécurité) sont dans app/_headers.
+[build]
+  publish = "app"
