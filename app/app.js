@@ -10,7 +10,7 @@ import { blurVideo, recopierSansReencoder, zoneTete, rayonZone, ELARGI_TETE, ELA
 
 
 
-const BUILD = '20261016-2019';
+const BUILD = '20261016-2209';
 
 
 const outbound = { count: 0, hotes: new Set() };

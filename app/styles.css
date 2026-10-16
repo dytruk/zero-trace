@@ -75,6 +75,8 @@ body[data-screen="aide"] .screen[data-for="aide"]{display:block}
 .truths li::before{content:"";position:absolute;left:0;top:17px;width:9px;height:1px;background:var(--encre)}
 .note{color:var(--gris);font-size:11px;margin-top:12px}
 
+.note a{color:var(--encre);text-decoration:underline;text-underline-offset:2px}
+
 
 .action{
   display:flex;align-items:center;justify-content:center;

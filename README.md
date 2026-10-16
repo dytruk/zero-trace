@@ -4,7 +4,7 @@ Floute les visages et efface les métadonnées d'une photo ou d'une vidéo,
 **entièrement sur l'appareil**. Pensé pour publier des images de manifestation
 sans exposer les gens qu'on y voit, ni la personne qui filme.
 
-En ligne : <https://ztrace.netlify.app>
+En ligne : <https://ztrace.app>
 
 ## Ce qu'il fait
 
@@ -53,6 +53,13 @@ Sur Netlify, `netlify.toml` suffit. Ailleurs, reprendre les en-têtes de
 `app/_headers` dans la configuration du serveur.
 
 Ce dépôt contient l'application telle qu'elle est servie en ligne.
+
+## Contact
+
+Un visage raté, un export qui bloque, une question : <contact@ztrace.app>,
+avec le journal de l'application (bouton « journal », ni image ni nom de
+fichier). N'envoyez jamais la vidéo elle-même. Pour un défaut dans le code,
+les issues de ce dépôt sont ouvertes.
 
 ## Licence
 

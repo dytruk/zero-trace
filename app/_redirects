@@ -1,3 +1,4 @@
+https://ztrace.netlify.app/*  https://ztrace.app/:splat  301!
 /vendor/*  /vendor/:splat  404
 /lib/*     /lib/:splat     404
 /icons/*   /icons/:splat   404
