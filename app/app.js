@@ -10,7 +10,7 @@ import { blurVideo, recopierSansReencoder, zoneTete, rayonZone, ELARGI_TETE, ELA
 
 
 
-const BUILD = '20261016-2347';
+const BUILD = '20261017-0249';
 
 
 const outbound = { count: 0, hotes: new Set() };
@@ -322,6 +322,33 @@ function montrerDiag() {
   $('diag').hidden = false;
 }
 $('voirDiag').addEventListener('click', montrerDiag);
+
+
+
+
+
+
+
+
+
+
+
+const CONTACT = 'contact@ztrace.app';
+function journalPourMail(complet) {
+  const [entete, journal = ''] = complet.split('\n--- journal ---\n');
+  const lignes = journal.split('\n').filter(Boolean)
+    .map((l) => (l.length > 160 ? l.slice(0, 160) + '\u2026' : l));
+  const fin = [];
+  for (let i = lignes.length - 1; i >= 0 && fin.join('\n').length + lignes[i].length < 450; i--) fin.unshift(lignes[i]);
+  return `${entete}\n--- fin du journal ---\n${fin.join('\n')}`;
+}
+
+$('diagMail')?.addEventListener('click', async () => {
+  const complet = $('diagTexte').value || rapport();
+  try { await navigator.clipboard.writeText(complet); } catch (e) {  }
+  const corps = `Ce qui s\u2019est passé :\n\n\n${journalPourMail(complet)}\n\n(Le journal complet a aussi été copié : tu peux le coller ici.)`;
+  location.href = `mailto:${CONTACT}?subject=${encodeURIComponent('Journal Zero-Trace ' + BUILD)}&body=${encodeURIComponent(corps)}`;
+});
 $('diagFermer').addEventListener('click', () => { $('diag').hidden = true; });
 $('diagCopier').addEventListener('click', async () => {
   const t = $('diagTexte');
@@ -1029,7 +1056,7 @@ function peindreVerdict() {
 
 
   const sous = S.kind === 'video'
-    ? 'Les visages sont cherchés sur chaque image à l\u2019export. Ce que tu traces au doigt suit son sujet.'
+    ? 'Les visages sont cherchés tout au long de la vidéo à l\u2019export. Ce que tu traces au doigt suit son sujet tant qu\u2019il le retrouve.'
     : 'Le flou est écrit dans les pixels : il ne se défait pas.';
   const el = $('verdict');
   el.innerHTML = `${titre}<small>${sous}</small>`;
@@ -1418,8 +1445,15 @@ function noteEdition() {
 
 
   const suit = S.suiviZones !== false;
+
+
+
+
+
   const geste = S.kind === 'video'
-    ? `<b>Trace un rectangle du doigt sur l\u2019image</b> pour flouter une zone de plus : ${suit ? 'elle suivra ce qu\u2019elle couvre' : 'elle restera au même endroit'} <b>\u00e0 partir d\u2019ici</b> et jusqu\u2019à la fin.`
+    ? (suit
+      ? `<b>Trace un rectangle du doigt sur l\u2019image</b> pour flouter une zone de plus <b>\u00e0 partir d\u2019ici</b>. Elle suit ce qu\u2019elle couvre tant qu\u2019elle le retrouve : si le sujet sort du cadre, se cache ou si le plan change, elle peut le perdre. Regarde le résultat.`
+      : `<b>Trace un rectangle du doigt sur l\u2019image</b> pour flouter une zone de plus : elle restera au même endroit <b>\u00e0 partir d\u2019ici</b> et jusqu\u2019à la fin.`)
     : '<b>Passe le doigt sur ce qui doit disparaître.</b> L\u2019outil Rectangle sert aux zones carrées.';
   const etat = z
     ? `${z} zone${z > 1 ? 's' : ''} marquée${z > 1 ? 's' : ''}, floutée${z > 1 ? 's' : ''} dans les pixels.`

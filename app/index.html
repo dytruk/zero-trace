@@ -95,7 +95,7 @@
       <li><b>Les visages</b>, trouvés tout seuls.</li>
       <li><b>Les gens de dos</b> : leur tête est floutée aussi, de dos comme de profil. L'export prend un peu plus de temps.</li>
       <li><b>La voix</b>, sur une vidéo : plus grave, toujours compréhensible, mais plus reconnaissable à l'oreille. Si l'appareil ne sait pas le faire, le son est retiré, et l'outil te le dit.</li>
-      <li><b>Le reste, au doigt</b> : une pancarte, un tatouage, une plaque, ou quelqu'un que l'outil a raté. Sur une vidéo, la zone suit la personne sur qui tu la poses.</li>
+      <li><b>Le reste, au doigt</b> : une pancarte, un tatouage, une plaque, ou quelqu'un que l'outil a raté. Sur une vidéo, la zone suit la personne sur qui tu la poses, tant qu'elle la retrouve : regarde le résultat.</li>
     </ul>
 
     <h3 class="titre-bloc">Le flou</h3>
@@ -258,10 +258,11 @@
   <div class="diag__in">
     <h3>Journal de la dernière tentative</h3>
     <p class="explique" id="diagRaison" hidden></p>
-    <p class="note">Tout est resté sur cet appareil. Copie ce texte et envoie-le à <a href="mailto:contact@ztrace.app">contact@ztrace.app</a> : il dit exactement ce que l’outil a fait, sans rien révéler de ton fichier.</p>
+    <p class="note">Tout est resté sur cet appareil. Ce journal dit exactement ce que l’outil a fait, sans rien révéler de ton fichier. « Envoyer par mail » ouvre ton application de mail avec le message prêt pour <a href="mailto:contact@ztrace.app">contact@ztrace.app</a> : tu le relis, et c’est toi qui l’envoies.</p>
     <textarea id="diagTexte" readonly rows="14"></textarea>
     <div class="actions">
-      <button class="action action--primary" id="diagCopier"><span>Copier le journal</span></button>
+      <button class="action action--primary" id="diagMail"><span>Envoyer par mail</span></button>
+      <button class="action" id="diagCopier"><span>Copier le journal</span></button>
       <button class="action" id="diagFermer"><span>Fermer</span></button>
     </div>
   </div>
